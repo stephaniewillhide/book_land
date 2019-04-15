@@ -11,7 +11,9 @@
 
   <body>
 
-    <%= render "nav" %>
+    <%- if controller_name == "users_controller" %>
+      <%= render "nav" %>
+    <%- end %>
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
@@ -20,7 +22,9 @@
       <%= yield %>
     </div>
 
-    <%= render "footer" %>
+    <%- if controller_name == "users_controller" %>
+      <%= render "footer" %>
+    <%- end %>
 
   </body>
 </html>
