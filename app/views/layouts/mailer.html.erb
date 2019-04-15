@@ -8,12 +8,8 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="/">
-        <%= image_tag("logo.png", :alt => "BookLand", :width => "100") %>
-        <h1 class="d-inline">BookLand!</h1>
-      </a>
-    </nav>
+    <%= render "nav" %>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
@@ -21,9 +17,7 @@
       <%= yield %>
     </div>
 
-    <footer class="navbar navbar-light bg-light mt-5">
-      <h6 class="py-3 text-muted">BookLand!</h6>
-      <h6 class="py-3 text-muted">&copy; 2019</h6>
-    </footer>
+    <%= render "footer" %>
+
   </body>
 </html>
