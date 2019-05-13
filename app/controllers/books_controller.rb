@@ -3,11 +3,12 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new
-    if @book.save
-      redirect_to(books_path, notice: "#{ @book.name } successfully created.")
-    else
-      render :new
+    def create
+      render plain: params[:book].inspect
     end
+  end
+
+  def index
+    @books = Book.all
   end
 end
