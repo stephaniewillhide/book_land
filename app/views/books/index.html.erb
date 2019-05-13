@@ -7,11 +7,6 @@
     <th>Actions</th>
   </thead>
   <tbody>
-    <% @books.each do |book| %>
-      <tr>
-        <td><%= book.name %></td>
-        <td><%= book.isbn %></td>
-      </tr>
-    <% end %>
+    <%= render(@books) %>
   </tbody>
 </table>
