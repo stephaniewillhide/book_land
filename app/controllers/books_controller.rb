@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  before_action :find_book, only: [:edit, :update]
 
   def index
     @books = Book.ordered
@@ -18,5 +19,17 @@ class BooksController < ApplicationController
   end
 
   def edit
+  end
+
+  def update
+    if @book.update(object_params)
+      redirect_to(bookss_path, notice: "#{ @book.name } successfully updated.")
+    else
+      render :edit
+    end
+  end
+
+  private def object_params
+    params.require(:book).permit(:name, :isbn)
   end
 end
