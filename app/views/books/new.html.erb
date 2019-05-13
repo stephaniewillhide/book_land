@@ -1,1 +1,15 @@
-This should be the books view
+<%= form_with scope: :book, url: articles_path, local: true do |form| %>
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :isbn %><br>
+    <%= form.text_area :isbn %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
