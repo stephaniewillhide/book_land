@@ -1,6 +1,4 @@
 class Book < ApplicationRecord
-  devise :database_authenticatable, :recoverable, :rememberable, :validatable
-
   validates :isbn,
             presence: true,
             uniqueness: true,
