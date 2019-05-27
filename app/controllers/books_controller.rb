@@ -10,7 +10,7 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new
+    @book = Book.new(object_params)
     if @book.save
       redirect_to(books_path, notice: "#{ @book.name } successfully created.")
     else
