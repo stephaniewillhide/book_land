@@ -1,10 +1,11 @@
-<%= link_to("New", new_book_path) %>
+<%= link_to("New", new_book_path, class: "btn btn-success mb-3 ml-3") %>
+<%= link_to("Users", "/users/", class: "btn btn-primary mb-3 ml-2") %>
 
 <table>
   <thead>
-    <th>Name</th>
-    <th>ISBN</th>
-    <th>Actions</th>
+    <th class="px-3">Name</th>
+    <th class="px-3">ISBN</th>
+    <th class="px-3">Actions</th>
   </thead>
   <tbody>
     <%= render(@books) %>
