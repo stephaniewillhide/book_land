@@ -9,6 +9,10 @@ class BooksController < ApplicationController
     @book = Book.new
   end
 
+  def show
+    @book = Book.find(object_params)
+  end
+
   def create
     @book = Book.new(object_params)
     if @book.save
