@@ -30,11 +30,8 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    if @book.destroy(object_params)
-      redirect_to(books_path, notice: "#{ @book.name } successfully deleted.")
-    else
-      render :destroy
-    end
+    @book.destroy(object_params)
+    redirect_to(books_path, notice: "#{ @book.name } successfully deleted.")
   end
 
   private def find_book
