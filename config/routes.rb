@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
   devise_for :books
   resources :books, except: [:destroy, :show]
+
+  resources :books
 end
