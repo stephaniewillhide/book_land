@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :find_book, only: [:edit, :update]
+  before_action :find_book, only: [:edit, :update, :destroy]
 
   def index
     @books = Book.ordered
@@ -7,10 +7,6 @@ class BooksController < ApplicationController
 
   def new
     @book = Book.new
-  end
-
-  def show
-    @book = Book.find(object_params)
   end
 
   def create
@@ -34,7 +30,7 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    @book.destroy(object_params)
+    @book.destroy
     redirect_to(books_path, notice: "#{ @book.name } successfully deleted.")
   end
 
