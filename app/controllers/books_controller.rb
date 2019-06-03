@@ -2,7 +2,7 @@ class BooksController < ApplicationController
   before_action :find_book, only: [:edit, :update, :destroy]
 
   def index
-    @books = Book.ordered
+    @books = Book.ordered.page params[:page]
   end
 
   def new

@@ -7,4 +7,6 @@ class Book < ApplicationRecord
   validates :name, presence: true
 
   scope :ordered, -> { order(name: :asc) }
+
+  paginates_per 3
 end
