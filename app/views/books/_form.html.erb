@@ -1,5 +1,5 @@
 <%= simple_form_for(@book, html: { class: "form-inline" }) do |form| %>
-  <%= form.input(:name) %>
-  <%= form.input(:isbn, label: "ISBN", input_html: { class: "my-cool-class" }) %>
+  <%= form.input(:name, input_html: { class: "m-1" }) %>
+  <%= form.input(:isbn, label: "ISBN", input_html: { class: "m-1" }) %>
   <%= form.submit %>
 <% end %>
