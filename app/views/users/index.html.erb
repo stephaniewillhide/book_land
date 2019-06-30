@@ -1,5 +1,5 @@
 <%= link_to("New", new_user_path, class: "btn btn-success mb-3 ml-3") %>
-<%= link_to("Books", "/books/", class: "btn btn-primary mb-3 ml-2") %>
+<%= link_to("Books", books_path, class: "btn btn-primary mb-3 ml-2") %>
 
 <table>
   <thead>
@@ -12,4 +12,4 @@
   </tbody>
 </table>
 
-<%= paginate @users %>
+<%= paginate (@users) %>
