@@ -1,5 +1,5 @@
 <%= simple_form_for(@user, html: { class: "form-inline" }) do |form| %>
-  <%= form.input(:name) %>
-  <%= form.input(:email) %>
+  <%= form.input(:name, input_html: { class: "m-1" }) %>
+  <%= form.input(:email, input_html: { class: "m-1" }) %>
   <%= form.submit %>
 <% end %>

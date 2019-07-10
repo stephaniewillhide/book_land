@@ -1,0 +1,11 @@
+<tr>
+  <td class="px-3"><%= book.name %></td>
+  <td class="px-3"><%= book.isbn %></td>
+  <td class="px-3"><%= link_to("Edit", edit_book_path(book)) %></td>
+  <td>
+    <%= link_to "Delete", book_path(book),
+      method: :delete,
+      data: { confirm: "Are you sure you want to delete #{ book.name }?" }
+    %>
+  </td>
+</tr>

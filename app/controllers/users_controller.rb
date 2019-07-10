@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:edit, :update]
 
   def index
-    @users = User.ordered
+    @users = User.ordered.page params[:page]
   end
 
   def new
