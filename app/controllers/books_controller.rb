@@ -3,7 +3,8 @@ class BooksController < ApplicationController
   before_action :find_book, only: [:edit, :update, :destroy]
 
   def index
-    @books = Book.ordered.page(params[:page])
+    @search_term = params.dig(:search, :term)
+    @books = Book.ordered.page(params[:page]).where("name LIKE ?", "%#{@search_term}%")
   end
 
   def new
