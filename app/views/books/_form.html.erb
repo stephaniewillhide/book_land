@@ -1,6 +1,6 @@
 <%= simple_form_for(@book, html: { class: "form-inline" }) do |form| %>
   <%= form.input(:name, input_html: { class: "m-1" }) %>
   <%= form.input(:isbn, label: "ISBN", input_html: { class: "m-1" }) %>
-  <%= form.input(:cover, input_html: { class: "m-1" }) %>
+  <%= form.drag_and_drop_file_field(:cover) %>
   <%= form.submit %>
 <% end %>
