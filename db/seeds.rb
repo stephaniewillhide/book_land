@@ -14,10 +14,6 @@ unless Book.exists?(isbn: "0679734503")
   Book.create!(name: "Crime and Punishment", isbn: "0679734503")
 end
 
-unless Book.exists?(isbn: "0679734503")
-  Book.create!(name: "Crime and Punishment", isbn: "0679734503")
-end
-
 unless Book.exists?(isbn: "0321410971")
   Book.create!(name: "Transcending CSS", isbn: "0321410971")
 end
