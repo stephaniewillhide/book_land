@@ -24,6 +24,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_storage_drag_and_drop (1.0.2.1)
+      rack (~> 2.0.6)
+      rails (>= 5.2.2.1)
     activejob (5.2.3)
       activesupport (= 5.2.3)
       globalid (>= 0.3.6)
@@ -238,6 +241,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_storage_drag_and_drop
   bootsnap (>= 1.1.0)
   bootstrap
   byebug
