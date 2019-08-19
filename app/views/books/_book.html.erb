@@ -1,7 +1,7 @@
 <tr>
   <td class="px-3"><%= book.name %></td>
   <td class="px-3"><%= book.isbn %></td>
-  <td><%= book.cover %><img src="<%= url_for(book.cover) rescue nil %>" /></td>
+  <td><img class="m-2 img-thumbnail" width="150" src="<%= url_for(book.cover) rescue nil %>" /></td>
   <td class="px-3"><%= link_to("Edit", edit_book_path(book)) %></td>
   <td>
     <%= link_to "Delete", book_path(book),
