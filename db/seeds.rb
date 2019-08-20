@@ -6,19 +6,12 @@ unless User.exists?(email: "swillhide@interexchange.org")
   User.create!(name: "Stephanie Willhide", email: "swillhide@interexchange.org", password: "password")
 end
 
-unless Book.exists?(isbn: "0393312836")
-  book = Book.create!(name: "A Clockwork Orange", isbn: "0393312836")
-  book.cover.attach(io: File.open(Rails.root.join("db", "sample_data", "a-clockwork-orange.jpg")), filename: "a-clockwork-orange.jpg")
-end
-
-unless Book.exists?(isbn: "0679734503")
-  Book.create!(name: "Crime and Punishment", isbn: "0679734503")
-end
-
-unless Book.exists?(isbn: "0321410971")
-  Book.create!(name: "Transcending CSS", isbn: "0321410971")
-end
-
-unless Book.exists?(isbn: "0399226907")
-  Book.create!(name: "The Very Hungry Caterpillar", isbn: "0399226907")
+[
+  ["A Clockwork Orange", "0393312836", "a-clockwork-orange.jpg"],
+  ["Crime and Punishment", "0679734503", "crime-and-punishment.jpg"],
+  ["Transcending CSS", "0321410971", "transcending-css.jpg"],
+  ["The Very Hungry Caterpillar", "0399226907", "the-very-hungry-caterpillar.jpg"]
+].each do |name, isbn, filename|
+  book = Book.find_or_create_by(name: name, isbn: isbn)
+  book.cover.attach(io: File.open(Rails.root.join("db", "sample_data", filename)), filename: filename )
 end
