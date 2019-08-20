@@ -6,18 +6,11 @@ unless User.exists?(email: "swillhide@interexchange.org")
   User.create!(name: "Stephanie Willhide", email: "swillhide@interexchange.org", password: "password")
 end
 
-unless Book.exists?(isbn: "0393312836")
-  Book.create!(name: "A Clockwork Orange", isbn: "0393312836")
-end
-
-unless Book.exists?(isbn: "0679734503")
-  Book.create!(name: "Crime and Punishment", isbn: "0679734503")
-end
-
-unless Book.exists?(isbn: "0321410971")
-  Book.create!(name: "Transcending CSS", isbn: "0321410971")
-end
-
-unless Book.exists?(isbn: "0399226907")
-  Book.create!(name: "The Very Hungry Caterpillar", isbn: "0399226907")
+[
+  ["A Clockwork Orange", "0393312836"],
+  ["Crime and Punishment", "0679734503"],
+  ["Transcending CSS", "0321410971"],
+  ["The Very Hungry Caterpillar", "0399226907"]
+].each do |name, isbn|
+  Book.find_or_create_by(name: name, isbn: isbn)
 end
