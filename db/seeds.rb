@@ -7,7 +7,8 @@ unless User.exists?(email: "swillhide@interexchange.org")
 end
 
 unless Book.exists?(isbn: "0393312836")
-  Book.create!(name: "A Clockwork Orange", isbn: "0393312836")
+  book = Book.create!(name: "A Clockwork Orange", isbn: "0393312836")
+  book.cover.attach(io: File.open(Rails.root.join("db", "sample_data", "a-clockwork-orange.jpg")), filename: "a-clockwork-orange.jpg")
 end
 
 unless Book.exists?(isbn: "0679734503")
