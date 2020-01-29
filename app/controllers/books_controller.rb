@@ -4,7 +4,7 @@ class BooksController < ApplicationController
 
   def index
     @search_term = params.dig(:search, :term)
-    @books = Book.ordered.page(params[:page])
+    @books = paginate(Book.ordered)
     if @search_term.present?
       @books = @books.search(@search_term)
     end
