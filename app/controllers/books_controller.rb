@@ -4,9 +4,10 @@ class BooksController < ApplicationController
 
   def index
     @search_term = params.dig(:search, :term)
-    search_term_with_wildcards = "%#{@search_term}%"
-    @books = Book.ordered.page(params[:page])
-      .where("name LIKE ? OR isbn LIKE ?", search_term_with_wildcards, search_term_with_wildcards)
+    @books = paginate(Book.ordered)
+    if @search_term.present?
+      @books = @books.search(@search_term)
+    end
   end
 
   def new
