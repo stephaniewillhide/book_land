@@ -1,3 +1,8 @@
+<%= simple_form_for(:search, method: "get", html: { class: "form-inline" }) do |form| %>
+  <%= form.input(:term, input_html: { autocomplete: "off", class: "m-1", value: @search_term }, label: false, placeholder: "Search by name or ISBN") %>
+  <%= form.submit("Search") %>
+<% end %>
+
 <table>
   <thead>
     <th class="px-3">Name</th>

@@ -3,7 +3,11 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:edit, :update]
 
   def index
-    @users = User.ordered.page params[:page]
+    @search_term = params.dig(:search, :term)
+    @users = paginate(User.ordered)
+    if @search_term.present?
+      @users = @users.search(@search_term)
+    end
   end
 
   def new

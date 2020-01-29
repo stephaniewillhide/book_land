@@ -3,7 +3,11 @@ class BooksController < ApplicationController
   before_action :find_book, only: [:edit, :update, :destroy]
 
   def index
-    @books = Book.ordered.page(params[:page])
+    @search_term = params.dig(:search, :term)
+    @books = paginate(Book.ordered)
+    if @search_term.present?
+      @books = @books.search(@search_term)
+    end
   end
 
   def new
