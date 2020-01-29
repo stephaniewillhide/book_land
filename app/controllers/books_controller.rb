@@ -5,7 +5,11 @@ class BooksController < ApplicationController
   def index
     @search_term = params.dig(:search, :term)
     search_term_with_wildcards = "%#{@search_term}%"
-    @books = Book.ordered.search(@search_term).page(params[:page])
+    if @search_term == nil || @search_term == ""
+      @books = Book.ordered.page(params[:page])
+    else
+      @books = Book.ordered.search(search_term_with_wildcards).page(params[:page])
+    end
   end
 
   def new

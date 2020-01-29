@@ -8,18 +8,8 @@ class Book < ApplicationRecord
 
   scope :ordered, -> { order(name: :asc) }
 
-  # def initialize(params = {})
-  #   @params = params
-  # end
-
-  # def params
-  #   @params
-  # end
-
-  # @search_term = params.dig(:search, :term)
-  # search_term_with_wildcards = "%#{@search_term}%"
-
-  scope :search, -> (search_term_with_wildcards) { where("name LIKE ? OR isbn LIKE ?", search_term_with_wildcards, search_term_with_wildcards) }
+  scope :search, -> (search_term_with_wildcards) { where("name LIKE ? OR isbn LIKE ?",
+    search_term_with_wildcards, search_term_with_wildcards) }
 
   paginates_per 3
 end
