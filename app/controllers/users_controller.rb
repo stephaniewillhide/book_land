@@ -4,9 +4,10 @@ class UsersController < ApplicationController
 
   def index
     @search_term = params.dig(:search, :term)
-    search_term_with_wildcards = "%#{@search_term}%"
-    @users = User.ordered.page(params[:page])
-      .where("name LIKE ? OR email LIKE ?", search_term_with_wildcards, search_term_with_wildcards)
+    @users = paginate(User.ordered)
+    if @search_term.present?
+      @users = @users.search(@search_term)
+    end
   end
 
   def new
