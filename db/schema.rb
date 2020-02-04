@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 2019_08_19_005449) do
   create_table "books", force: :cascade do |t|
     t.string "name", null: false
     t.string "isbn", null: false
-    t.string "cover"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
