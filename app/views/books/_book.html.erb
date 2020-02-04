@@ -2,11 +2,8 @@
   <td class="px-3"><%= book.name %></td>
   <td class="px-3"><%= book.isbn %></td>
   <td>
-    <% if book.cover.attached? %>
-      <%= image_tag(book.cover, class: "m-2 img-thumbnail", width: "150") %>
-    <% else %>
-      <%= image_tag("sample-book-cover.jpg", class: "m-2 img-thumbnail", width: "150") %>
-    <% end %>
+    <% book_cover = book.cover.attached? ? book.cover : "sample-book-cover.jpg" %>
+    <%= image_tag(book_cover, class: "m-2 img-thumbnail", width: "150") %>
   </td>
   <td class="px-3"><%= link_to("Edit", edit_book_path(book)) %></td>
   <td>
