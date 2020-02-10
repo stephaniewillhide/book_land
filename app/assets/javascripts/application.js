@@ -17,3 +17,4 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require_tree .
+//= require active_storage_drag_and_drop

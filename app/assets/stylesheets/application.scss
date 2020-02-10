@@ -12,4 +12,21 @@
  *
  */
 
-@import "bootstrap"
+ /*
+ *= require active_storage_drag_and_drop
+ */
+
+@import "bootstrap";
+
+.asdndzone {
+  border: 1px solid #28a745!important;
+  padding: 20px!important;
+  margin: 10px!important;
+
+  .asdndz-highlight {
+    color: #28a745!important;
+    &:before {
+      content: "\00a0 ";
+    }
+  }
+}

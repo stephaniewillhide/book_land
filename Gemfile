@@ -11,6 +11,7 @@ gem "sqlite3", "~> 1.3.6"
 gem "turbolinks", "~> 5"
 gem "uglifier", ">= 1.3.0"
 gem "kaminari"
+gem "active_storage_drag_and_drop"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.1.0", require: false
