@@ -4,7 +4,7 @@ class CreateBooks < ActiveRecord::Migration[5.2]
       t.string :name, null: false
       t.string :isbn, null: false
       t.string :cover
-      t.boolean :featured
+      t.boolean :featured, null: false, default: false
 
       t.timestamps
     end
