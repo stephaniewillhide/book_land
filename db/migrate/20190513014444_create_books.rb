@@ -3,6 +3,7 @@ class CreateBooks < ActiveRecord::Migration[5.2]
     create_table :books do |t|
       t.string :name, null: false
       t.string :isbn, null: false
+      t.boolean :featured
 
       t.timestamps
     end
