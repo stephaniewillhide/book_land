@@ -12,5 +12,9 @@
       data: { confirm: "Are you sure you want to delete #{ book.name }?" }
     %>
   </td>
-  <td class="px-3"><button type="button" class="btn btn-warning btn-sm">Feature</button></td>
+  <% if book.featured? %>
+    This book is featured.
+  <% else %>
+    <td class="px-3"><button type="button" class="btn btn-warning btn-sm">Feature</button></td>
+  <% end %>
 </tr>
