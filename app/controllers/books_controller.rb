@@ -34,6 +34,12 @@ class BooksController < ApplicationController
     end
   end
 
+  def toggle_featured(book)
+    @book = Book.find(params[:id])
+    @book.toggle!(:featured)
+  end
+  helper_method :toggle_featured
+
   def destroy
     @book.destroy
     redirect_to(books_path, notice: "#{ @book.name } successfully deleted.")
@@ -44,6 +50,6 @@ class BooksController < ApplicationController
   end
 
   private def object_params
-    params.require(:book).permit(:name, :isbn, :cover)
+    params.require(:book).permit(:name, :isbn, :cover, :favorite)
   end
 end
