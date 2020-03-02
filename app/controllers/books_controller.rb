@@ -34,11 +34,11 @@ class BooksController < ApplicationController
     end
   end
 
-  def toggle_featured(book)
-    @book = Book.find(params[:id])
+  def toggle_featured
+    # @book = Book.find(params[:id])
     @book.toggle!(:featured)
+    # render action: "update"
   end
-  helper_method :toggle_featured
 
   def destroy
     @book.destroy

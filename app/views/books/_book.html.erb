@@ -13,12 +13,6 @@
     %>
   </td>
   <td class="px-3">
-    <%= toggle_featured(book) %>
-    <%= link_to "#{ book.featured ? 'Featured' : 'Not Featured' }", toggle_featured(book), method: :patch, remote: :true, class: "btn btn-xs btn-#{ book.featured ? 'success' : 'warning' }"  %>
-    <% if book.featured? %>
-      🌟 Featured Book! <a type="button" class="btn btn-light btn-sm ml-2">Unfeature</a>
-    <% else %>
-      <button type="button" class="btn btn-warning btn-sm">Feature</button>
-    <% end %>
+    <%= link_to "#{ book.featured ? "🌟 Featured Book!" : "Not Featured" }", toggle_featured_book_path(book), method: :patch, remote: :true, class: "btn btn-xs btn-#{ book.featured ? 'success' : 'warning' }" %>
   </td>
 </tr>
