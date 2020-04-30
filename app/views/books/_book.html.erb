@@ -13,6 +13,6 @@
     %>
   </td>
   <td class="px-3">
-    <%= link_to "#{ book.featured ? "🌟 Featured Book!" : "Not Featured" }", toggle_featured_book_path(book), method: :patch, remote: :true, class: "btn btn-xs btn-#{ book.featured ? 'success' : 'warning' }" %>
+    <%= link_to "#{ book.featured ? "🌟 Featured Book!" : "Not Featured" }", toggle_featured_book_path(book), method: :patch, class: "btn btn-xs btn-#{ book.featured ? 'success' : 'warning' }" %>
   </td>
 </tr>

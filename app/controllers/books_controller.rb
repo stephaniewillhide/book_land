@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   layout "books"
-  before_action :find_book, only: [:edit, :update, :destroy]
+  before_action :find_book, only: [:edit, :update, :destroy, :toggle_featured]
 
   def index
     @search_term = params.dig(:search, :term)
@@ -35,9 +35,8 @@ class BooksController < ApplicationController
   end
 
   def toggle_featured
-    # @book = Book.find(params[:id])
     @book.toggle!(:featured)
-    # render action: "update"
+    redirect_to url_for(action: :index), notice: @book.featured ? "#{ @book.name } successfully featured." : "#{ @book.name } successfully unfeatured."
   end
 
   def destroy
