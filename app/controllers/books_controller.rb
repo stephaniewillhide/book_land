@@ -44,8 +44,6 @@ class BooksController < ApplicationController
     redirect_to(books_path, notice: "#{ @book.name } successfully deleted.")
   end
 
-  #book_cover
-
   private def find_book
     @book = Book.find(params[:id])
   end
