@@ -2,7 +2,8 @@
   <div class="row" style="height: 400px;">
     <div class="col-12 text-center" style="height: 400px;">
       <h1><%=book.name%></h1>
-      <%= image_tag(display_cover(book.cover), class: "p-2 h-100") %>
+      <% book_cover = book.cover.attached? ? book.cover : "sample-book-cover.jpg" %>
+      <%= image_tag(book_cover, class: "p-2 h-100") %>
     </div>
   </div>
 </div>
