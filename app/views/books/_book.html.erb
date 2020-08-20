@@ -2,8 +2,7 @@
   <td class="px-3"><%= book.name %></td>
   <td class="px-3"><%= book.isbn %></td>
   <td>
-    <% book_cover = book.cover.attached? ? book.cover : "sample-book-cover.jpg" %>
-    <%= image_tag(book_cover, class: "m-2 img-thumbnail", width: "150") %>
+    <%= image_tag(display_cover(book), class: "m-2 img-thumbnail", width: "150") %>
   </td>
   <td class="px-3"><%= link_to("Edit", edit_book_path(book)) %></td>
   <td>
@@ -11,5 +10,8 @@
       method: :delete,
       data: { confirm: "Are you sure you want to delete #{ book.name }?" }
     %>
+  </td>
+  <td class="px-3">
+    <%= link_to "#{ book.featured ? "🌟 Featured Book!" : "Not Featured" }", toggle_featured_book_path(book), method: :patch, class: "btn btn-xs btn-#{ book.featured ? 'success' : 'warning' }" %>
   </td>
 </tr>

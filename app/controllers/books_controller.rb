@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   layout "books"
-  before_action :find_book, only: [:edit, :update, :destroy]
+  before_action :find_book, only: [:edit, :update, :destroy, :toggle_featured]
 
   def index
     @search_term = params.dig(:search, :term)
@@ -34,6 +34,11 @@ class BooksController < ApplicationController
     end
   end
 
+  def toggle_featured
+    @book.toggle!(:featured)
+    redirect_to url_for(action: :index), notice: @book.featured ? "#{ @book.name } successfully featured." : "#{ @book.name } successfully unfeatured."
+  end
+
   def destroy
     @book.destroy
     redirect_to(books_path, notice: "#{ @book.name } successfully deleted.")
@@ -44,6 +49,6 @@ class BooksController < ApplicationController
   end
 
   private def object_params
-    params.require(:book).permit(:name, :isbn, :cover)
+    params.require(:book).permit(:name, :isbn, :cover, :favorite)
   end
 end

@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2019_08_19_005449) do
     t.string "name", null: false
     t.string "isbn", null: false
     t.string "cover"
+    t.boolean "featured", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

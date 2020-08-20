@@ -15,5 +15,7 @@ class Book < ApplicationRecord
     where("name LIKE ? OR isbn LIKE ?",
     search_term_with_wildcards, search_term_with_wildcards) }
 
+  scope :featured, -> { where(featured: true) }
+
   paginates_per 3
 end

@@ -1,0 +1,26 @@
+<% if @books.any? %>
+  <div id="featuredCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <%= render(partial: "book", collection: @books) %>
+    </div>
+    <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" style="background-color: #28a745; border-radius: 10px; padding: 16px;" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" style="background-color: #28a745; border-radius: 10px; padding: 16px;" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3>No featured books found!</h3>
+      <%= link_to("Add a New Book", new_book_path, class: "btn btn-primary my-3") %>
+      <%= link_to("Feature Your Books", books_path, class: "btn btn-success my-3") %>
+      <p>
+        Add new books to your library so that you can access them here
+      </p>
+    </div>
+  </div>
+<% end %>
