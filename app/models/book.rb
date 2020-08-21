@@ -18,4 +18,15 @@ class Book < ApplicationRecord
   scope :featured, -> { where(featured: true) }
 
   paginates_per 3
+
+  def self.to_csv
+    attributes = %w{ name isbn featured }
+    CSV.generate() do |csv|
+      csv << attributes
+
+      all.each do |book|
+        csv << book.attributes.values_at(*attributes)
+      end
+    end
+  end
 end

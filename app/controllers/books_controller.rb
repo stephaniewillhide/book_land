@@ -8,6 +8,11 @@ class BooksController < ApplicationController
     if @search_term.present?
       @books = @books.search(@search_term)
     end
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @books.to_csv }
+    end
   end
 
   def new
