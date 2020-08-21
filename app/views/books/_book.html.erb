@@ -15,3 +15,4 @@
     <%= link_to "#{ book.featured ? "🌟 Featured Book!" : "Not Featured" }", toggle_featured_book_path(book), method: :patch, class: "btn btn-xs btn-#{ book.featured ? 'success' : 'warning' }" %>
   </td>
 </tr>
+
