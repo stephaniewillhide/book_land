@@ -11,7 +11,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @books.to_csv }
+      format.csv { send_data @books.to_csv, filename: "#{Date.today}_books.csv" }
     end
   end
 
