@@ -2,6 +2,7 @@
   <%= form.input(:name) %>
   <%= form.input(:isbn, label: "ISBN") %>
   <%= form.input(:featured, label: "Featured?", as: :boolean) %>
+  <%= form.association(:genres, collection: Genre.ordered, as: :check_boxes) %>
   <%= form.drag_and_drop_file_field(:cover) %>
   <%= form.submit %>
 <% end %>

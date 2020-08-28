@@ -1,6 +1,8 @@
 class Book < ApplicationRecord
   has_one_attached :cover
 
+  has_and_belongs_to_many :genres
+
   validates :isbn,
             presence: true,
             uniqueness: true
