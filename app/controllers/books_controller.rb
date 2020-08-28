@@ -4,9 +4,14 @@ class BooksController < ApplicationController
 
   def index
     @search_term = params.dig(:search, :term)
-    @books = paginate(Book.ordered)
+    @books = Book.ordered
     if @search_term.present?
       @books = @books.search(@search_term)
+    end
+
+    respond_to do |format|
+      format.html { @books = paginate(@books) }
+      format.csv { send_data @books.to_csv, filename: "#{ Date.today.strftime('%Y%m%d')}_books.csv" }
     end
   end
 

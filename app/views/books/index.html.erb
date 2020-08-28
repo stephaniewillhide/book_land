@@ -16,4 +16,5 @@
   </tbody>
 </table>
 
+<%= link_to 'Download CSV', books_path(format: :csv, search: params["search"]&.to_unsafe_h), class: "btn btn-xs btn-success mb-2" %>
 <%= paginate(@books) %>
