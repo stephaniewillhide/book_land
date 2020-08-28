@@ -7,11 +7,11 @@ unless User.exists?(email: "swillhide@interexchange.org")
 end
 
 [
-  ["A Clockwork Orange", "0393312836", "db/sample_data/a-clockwork-orange.jpg"],
-  ["Crime and Punishment", "0679734503", "db/sample_data/crime-and-punishment.jpg"],
-  ["Transcending CSS", "0321410971", "db/sample_data/transcending-css.jpg"],
-  ["The Very Hungry Caterpillar", "0399226907", "db/sample_data/the-very-hungry-caterpillar.jpg"]
-].each do |name, isbn, cover|
+  ["A Clockwork Orange", "0393312836", "db/sample_data/a-clockwork-orange.jpg, Dystopian Fiction"],
+  ["Crime and Punishment", "0679734503", "db/sample_data/crime-and-punishment.jpg, Psychological Fiction"],
+  ["Transcending CSS", "0321410971", "db/sample_data/transcending-css.jpg, Reference"],
+  ["The Very Hungry Caterpillar", "0399226907", "db/sample_data/the-very-hungry-caterpillar.jpg, Children's Literature"]
+].each do |name, isbn, cover, genre|
   book = Book.find_or_create_by(name: name, isbn: isbn)
   unless book.cover.attached?
     book.cover.attach(
