@@ -12,7 +12,7 @@ end
   ["Transcending CSS", "0321410971", "db/sample_data/transcending-css.jpg", "Reference"],
   ["The Very Hungry Caterpillar", "0399226907", "db/sample_data/the-very-hungry-caterpillar.jpg", "Children's Literature"]
 ].each do |name, isbn, cover, genre|
-  book = Book.find_or_create_by(name: name, isbn: isbn)
+  book = Book.find_or_create_by(name: name, isbn: isbn, genre: genre)
   unless book.cover.attached?
     book.cover.attach(
       content_type: "image/jpg",
