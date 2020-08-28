@@ -21,7 +21,7 @@ class Book < ApplicationRecord
 
   def self.to_csv
     attributes = %w{ name isbn featured }
-    CSV.generate() do |csv|
+    CSV.generate do |csv|
       csv << attributes
 
       all.each do |book|
