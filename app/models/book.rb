@@ -3,8 +3,9 @@ class Book < ApplicationRecord
 
   validates :isbn,
             presence: true,
-            uniqueness: true,
-            length: { is: 10 || 13 }
+            uniqueness: true
+
+  validate :length_of_isbn
 
   validates :name, presence: true
 
@@ -27,6 +28,14 @@ class Book < ApplicationRecord
       all.each do |book|
         csv << book.attributes.values_at(*attributes)
       end
+    end
+  end
+
+  private def length_of_isbn
+    return if isbn.nil?
+
+    if isbn.length != 10 && isbn.length != 13
+      errors.add(:isbn, "is the wrong length (should be 10 or 13 characters)")
     end
   end
 end
