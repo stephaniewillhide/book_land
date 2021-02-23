@@ -71,7 +71,7 @@ describe Book do
     end
   end
 
-  it "validates that a Book has a name", :focus do
+  it "validates that a Book has a name" do
     book = Book.new
 
     book.valid?
@@ -82,7 +82,7 @@ describe Book do
     expect(book.errors[:name]).to eq([])
   end
 
-  it "validates ISBN", :focus do
+  it "validates ISBN"s do
     book = Book.new
 
     book.valid?
