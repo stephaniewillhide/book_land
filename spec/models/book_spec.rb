@@ -98,28 +98,16 @@ describe Book do
     book.valid?
     expect(book.errors[:isbn]).to eq(["can't be blank"])
 
-    book.isbn = 1234567891
-    book.valid?
-    expect(book.errors[:isbn]).to eq([])
+    [10, 13].each do |number_of_characters|
+      book.isbn = "1" * number_of_characters
+      book.valid?
+      expect(book.errors[:isbn]).to eq([])
 
-    book.isbn = 12345678911
-    book.valid?
-    expect(book.errors[:isbn]).to eq(["is the wrong length (should be 10 or 13 characters)"])
-
-    book.isbn = 123456789
-    book.valid?
-    expect(book.errors[:isbn]).to eq(["is the wrong length (should be 10 or 13 characters)"])
-
-    book.isbn = 123456789111
-    book.valid?
-    expect(book.errors[:isbn]).to eq(["is the wrong length (should be 10 or 13 characters)"])
-
-    book.isbn = 1234567891111
-    book.valid?
-    expect(book.errors[:isbn]).to eq([])
-
-    book.isbn = 12345678911111
-    book.valid?
-    expect(book.errors[:isbn]).to eq(["is the wrong length (should be 10 or 13 characters)"])
+      [number_of_characters - 1, number_of_characters + 1].each do |invalid_number_of_characters|
+        book.isbn = "1" * invalid_number_of_characters
+        book.valid?
+        expect(book.errors[:isbn]).to eq(["is the wrong length (should be 10 or 13 characters)"])
+      end
+    end
   end
 end
