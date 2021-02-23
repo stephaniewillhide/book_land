@@ -17,8 +17,8 @@ describe User do
   describe ".search" do
     subject { described_class.search(search_term) }
 
-    let!(:david) { User.create!(name: "David", email: "david@interexchange.org", password: "password") }
-    let!(:candice) { User.create!(name: "Candice", email: "candice@interexchange.org", password: "password") }
+    let!(:david) { User.create!(name: "David", email: "dsmith@interexchange.org", password: "password") }
+    let!(:candice) { User.create!(name: "Candice", email: "cjones@interexchange.org", password: "password") }
 
     describe "searching by name" do
       let(:search_term) { "cand" }
@@ -42,7 +42,7 @@ describe User do
     end
 
     describe "searching by email" do
-      let(:search_term) { "david@interexchange" }
+      let(:search_term) { "dsmith@interexchange" }
 
       it { is_expected.not_to include(candice) }
       it { is_expected.to include(david) }
