@@ -8,9 +8,11 @@ describe Book do
   describe ".ordered" do
     it "orders records by name ASC" do
       beloved = Book.create!(name: "Beloved", isbn: 1987654321)
+      beloved2 = Book.create!(name: "beloved", isbn: 1987654322)
       animal_farm = Book.create!(name: "Animal Farm", isbn: 1234567890)
+      animal_farm2 = Book.create!(name: "animal Farm", isbn: 1234567892)
 
-      expect(described_class.ordered).to eq([animal_farm, beloved])
+      expect(described_class.ordered).to eq([animal_farm, beloved, animal_farm2, beloved2])
     end
   end
 
@@ -82,7 +84,7 @@ describe Book do
     expect(book.errors[:name]).to eq([])
   end
 
-  it "validates ISBN"s do
+  it "validates ISBN" do
     book = Book.new
 
     book.valid?
