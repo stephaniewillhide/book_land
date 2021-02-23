@@ -84,7 +84,15 @@ describe Book do
     expect(book.errors[:name]).to eq([])
   end
 
-  it "validates ISBN" do
+  it "validates the uniqueness of the ISBN" do
+    beloved = Book.create!(name: "Beloved", isbn: 1987654321)
+    book = Book.new
+    book.isbn = 1987654321
+    book.valid?
+    expect(book.errors[:isbn]).to eq(["has already been taken"])
+  end
+
+  it "validates the ISBN is present and exactly 10 or 13 characters" do
     book = Book.new
 
     book.valid?
