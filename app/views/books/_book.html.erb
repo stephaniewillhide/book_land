@@ -1,5 +1,6 @@
 <tr>
   <td class="px-3"><%= book.name %></td>
+  <td class="px-3"><%= book.authors.pluck(:name).join(", ") %></td>
   <td class="px-3"><%= book.isbn %></td>
   <td class="px-3"><%= book.genres.pluck(:name).join(", ") %></td>
   <td>

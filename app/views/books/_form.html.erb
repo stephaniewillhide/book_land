@@ -1,5 +1,6 @@
 <%= simple_form_for(@book) do |form| %>
   <%= form.input(:name) %>
+  <%= form.association(:authors, collection: Author.ordered) %>
   <%= form.input(:isbn, label: "ISBN") %>
   <%= form.input(:featured, label: "Featured?", as: :boolean) %>
   <%= form.association(:genres, collection: Genre.ordered, as: :check_boxes) %>
