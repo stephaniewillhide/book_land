@@ -9,7 +9,7 @@ class Book < ApplicationRecord
 
   validates :name, presence: true
 
-  scope :ordered, -> { order(name: :asc) }
+  scope :ordered, -> { order('LOWER(name)') }
 
   scope :search, -> (search_term) {
     search_term_with_wildcards = "%#{search_term}%"
