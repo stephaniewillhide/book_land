@@ -87,7 +87,7 @@ describe Book do
   it "validates the uniqueness of the ISBN" do
     beloved = Book.create!(name: "Beloved", isbn: 1987654321)
     book = Book.new
-    book.isbn = 1987654321
+    book.isbn = beloved.isbn
     book.valid?
     expect(book.errors[:isbn]).to eq(["has already been taken"])
   end
