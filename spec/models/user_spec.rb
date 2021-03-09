@@ -9,8 +9,10 @@ describe User do
     it "orders records by name ASC" do
       beatrice = User.create!(name: "Beatrice", email: "beatrice@interexchange.org", password: "password")
       adam = User.create!(name: "Adam", email: "adam@interexchange.org", password: "password")
+      bernadette = User.create!(name: "bernadette", email: "bweber@interexchange.org", password: "password")
+      andrea = User.create!(name: "andrea", email: "ajackson@interexchange.org", password: "password")
 
-      expect(described_class.ordered).to eq([adam, beatrice])
+      expect(described_class.ordered).to eq([adam, andrea, beatrice, bernadette])
     end
   end
 
