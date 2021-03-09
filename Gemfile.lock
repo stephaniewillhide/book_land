@@ -89,6 +89,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    diff-lcs (1.4.4)
     erubi (1.10.0)
     execjs (2.7.0)
     ffi (1.15.0)
@@ -191,7 +192,6 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    ruby_dep (1.5.0)
     rubyzip (2.3.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
