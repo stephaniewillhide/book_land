@@ -73,6 +73,35 @@ describe Book do
     end
   end
 
+  describe ".leap_year" do
+    it "Determines whether or not the book was written in a leap year" do
+      book = Book.new
+      book.created_at = Date.new(2000, 1, 1)
+
+      expect(book.leap_year?).to eq(true)
+
+      book.created_at = book.created_at.change(year: 1700)
+
+      expect(book.leap_year?).to eq(false)
+
+      book.created_at = book.created_at.change(year: 2016)
+
+      expect(book.leap_year?).to eq(true)
+
+      book.created_at = book.created_at.change(year: 1900)
+
+      expect(book.leap_year?).to eq(false)
+
+      book.created_at = book.created_at.change(year: 2100)
+
+      expect(book.leap_year?).to eq(false)
+
+      book.created_at = book.created_at.change(year: 2400)
+
+      expect(book.leap_year?).to eq(true)
+    end
+  end
+
   it "validates that a Book has a name" do
     book = Book.new
 

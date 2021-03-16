@@ -33,6 +33,18 @@ class Book < ApplicationRecord
     end
   end
 
+  def leap_year?
+    year = created_at.year
+
+    if year % 4 == 0 && year % 100 != 0
+      true
+    elsif year % 400 == 0
+      true
+    else
+      false
+    end
+  end
+
   private def length_of_isbn
     return if isbn.nil?
 
