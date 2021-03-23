@@ -54,4 +54,12 @@ describe Genre do
     genre.valid?
     expect(genre.errors[:name]).to eq([])
   end
+
+  it "validates the uniqueness of the Genre name" do
+    comedy = Genre.create!(name: "Comedy")
+    genre = Genre.new
+    genre.name = comedy.name
+    genre.valid?
+    expect(genre.errors[:name]).to eq(["has already been taken"])
+  end
 end
