@@ -7,10 +7,10 @@ describe Book do
 
   describe ".ordered" do
     it "orders records by name ASC" do
-      beloved = Book.create!(name: "Beloved", isbn: 1987654321)
-      beowulf = Book.create!(name: "beowulf", isbn: 1987654322)
-      animal_farm = Book.create!(name: "Animal Farm", isbn: 1234567890)
-      angelas_ashes = Book.create!(name: "angela's ashes", isbn: 1234567892)
+      beloved = create(:book, name: "Beloved")
+      beowulf = create(:book, name: "beowulf")
+      animal_farm = create(:book, name: "Animal Farm")
+      angelas_ashes = create(:book, name: "angela's ashes")
 
       expect(described_class.ordered).to eq([angelas_ashes, animal_farm, beloved, beowulf])
     end
@@ -19,8 +19,8 @@ describe Book do
   describe ".featured" do
     subject { described_class.featured }
 
-    let(:featured_book) { Book.create!(name: "Beloved", isbn: 1987654321, featured: true) }
-    let(:not_featured_book) { Book.create!(name: "Animal Farm", isbn: 1234567890, featured: false) }
+    let(:featured_book) { create(:book, featured: true) }
+    let(:not_featured_book) { create(:book, featured: false) }
 
     it { is_expected.to include(featured_book) }
     it { is_expected.not_to include(not_featured_book) }
@@ -29,8 +29,8 @@ describe Book do
   describe ".search" do
     subject { described_class.search(search_term) }
 
-    let!(:emma) { Book.create!(name: "Emma", isbn: 9292929292) }
-    let!(:freedom) { Book.create!(name: "Freedom", isbn: 1919191919) }
+    let!(:emma) { create(:book, name: "Emma", isbn: 9292929292) }
+    let!(:freedom) { create(:book, name: "Freedom", isbn: 1919191919) }
 
     describe "searching by name" do
       let(:search_term) { "emm" }
@@ -63,7 +63,7 @@ describe Book do
 
   describe ".to_csv" do
     it "Exports the appropriate content" do
-      dracula = Book.create!(name: "Dracula", isbn: 8787878787, featured: false)
+      dracula = create(:book, name: "Dracula", isbn: 8787878787, featured: false)
       csv = Book.to_csv.split("\n")
       header = csv[0]
       data = csv[1]
@@ -101,7 +101,7 @@ describe Book do
 
   describe ".count_in_leap_years" do
     it "Determines how many books were created during a leap year" do
-      book = Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1))
+      book = create(:book, created_at: Date.new(2000, 1, 1))
 
       expect(Book.count_in_leap_years).to eq(1)
 
@@ -122,12 +122,11 @@ describe Book do
   describe ".count_per_year" do
     it "Determines how many books were created per year" do
       expect(Book.count_per_year).to eq({ })
-
-      Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1))
+      create(:book, created_at: Date.new(2000, 1, 1))
 
       expect(Book.count_per_year).to eq({ 2000 => 1})
 
-      Book.create!(name: "Freedom", isbn: 1919191919, created_at: Date.new(2021, 12, 31))
+      create(:book, created_at: Date.new(2021, 12, 31))
 
       expect(Book.count_per_year).to eq({ 2000 => 1, 2021 => 1})
     end
@@ -138,12 +137,12 @@ describe Book do
       # When we have no books, the value for every year is zero
       expect(Book.count_in_years(2000, 2019, 2020)).to eq({ 2000 => 0, 2019 => 0, 2020 => 0,})
 
-      Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1))
+      create(:book, created_at: Date.new(2000, 1, 1))
 
       # Adding one book updates the value appropriately
       expect(Book.count_in_years(2000, 2019, 2020)).to eq({ 2000 => 1, 2019 => 0, 2020 => 0,})
 
-      Book.create!(name: "Freedom", isbn: 1919191919, created_at: Date.new(2021, 1, 1))
+      create(:book, created_at: Date.new(2021, 1, 1))
 
       # No years in the method works as expected
       expect(Book.count_in_years()).to eq({})
@@ -160,18 +159,18 @@ describe Book do
       # When we have no books, the value for every month is zero
       expect(Book.per_month(2000)).to eq(default_monthly_values)
 
-      Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1))
+      create(:book, created_at: Date.new(2000, 1, 1))
 
       # Adding one book updates the value appropriately
       expect(Book.per_month(2000)).to eq(default_monthly_values.merge({ "January" => 1 }))
 
-      Book.create!(name: "Freedom", isbn: 1919191919, created_at: Date.new(2000, 2, 1))
+      create(:book, created_at: Date.new(2000, 2, 1))
 
       # Adding a second book updates the value appropriately
       expect(Book.per_month(2000)).to eq(default_monthly_values.merge({ "January" => 1, "February" => 1 }))
 
       # Add a book with an incorrect year does not affect hash
-      Book.create!(name: "Freedom2", isbn: 1919191918, created_at: Date.new(2001, 2, 1))
+      create(:book, created_at: Date.new(2001, 2, 1))
 
       expect(Book.per_month(2000)).to eq(default_monthly_values.merge({ "January" => 1, "February" => 1 }))
     end
@@ -189,11 +188,11 @@ describe Book do
   end
 
   it "validates the uniqueness of the ISBN" do
-    beloved = Book.create!(name: "Beloved", isbn: 1987654321)
-    book = Book.new
-    book.isbn = beloved.isbn
-    book.valid?
-    expect(book.errors[:isbn]).to eq(["has already been taken"])
+    book1 = create(:book, name: "Beloved", isbn: 1987654321)
+    book2 = Book.new
+    book2.isbn = book1.isbn
+    book2.valid?
+    expect(book2.errors[:isbn]).to eq(["has already been taken"])
   end
 
   it "validates the ISBN is present and exactly 10 or 13 characters" do

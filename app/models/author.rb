@@ -39,12 +39,12 @@ class Author < ApplicationRecord
   end
 
   def bibliography
-    books.map do |book|
+    author_book_info = books.map do |book|
       humanized_month_name = Date::MONTHNAMES[book.created_at.month]
       genre_names = "(" + book.genres.map { |genre| genre.name }.join(", ") + ")"
       [humanized_month_name, book.created_at.year, book.name, genre_names].join(" ")
     end.join(", ")
 
-    author_name + ": " + author_book_info
+    name + ": " + author_book_info
   end
 end

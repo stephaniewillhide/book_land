@@ -7,10 +7,10 @@ describe Genre do
 
   describe ".ordered" do
     it "orders records by name ASC" do
-      fantasy = Genre.create!(name: "Fantasy")
-      fiction = Genre.create!(name: "fiction")
-      adventure = Genre.create!(name: "Adventure")
-      anthology = Genre.create!(name: "anthology")
+      fantasy = create(:genre, name: "Fantasy")
+      fiction = create(:genre, name: "fiction")
+      adventure = create(:genre, name: "Adventure")
+      anthology = create(:genre, name: "anthology")
 
       expect(described_class.ordered).to eq([adventure, anthology, fantasy, fiction])
     end
@@ -19,8 +19,8 @@ describe Genre do
   describe ".search" do
     subject { described_class.search(search_term) }
 
-    let!(:mystery) { Genre.create!(name: "Mystery") }
-    let!(:thriller) { Genre.create!(name: "Thriller") }
+    let!(:mystery) { create(:genre, name: "Mystery") }
+    let!(:thriller) { create(:genre, name: "Thriller") }
 
     describe "searching by name" do
       let(:search_term) { "myst" }
@@ -56,7 +56,7 @@ describe Genre do
   end
 
   it "validates the uniqueness of the Genre name" do
-    comedy = Genre.create!(name: "Comedy")
+    comedy = create(:genre, name: "Comedy")
     genre = Genre.new
     genre.name = comedy.name
     genre.valid?
