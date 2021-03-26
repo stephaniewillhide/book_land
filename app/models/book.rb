@@ -36,13 +36,11 @@ class Book < ApplicationRecord
   def leap_year?
     year = created_at.year
 
-    if year % 4 == 0 && year % 100 != 0
-      true
-    elsif year % 400 == 0
-      true
-    else
-      false
-    end
+    divisible_by_4 = year % 4 == 0
+    not_divisible_by_100 = year % 100 != 0
+    divisible_by_400 = year % 400 == 0
+
+    (divisible_by_4 && not_divisible_by_100) || divisible_by_400
   end
 
   private def length_of_isbn

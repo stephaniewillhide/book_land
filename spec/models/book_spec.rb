@@ -88,17 +88,9 @@ describe Book do
 
       expect(book.leap_year?).to eq(true)
 
-      book.created_at = book.created_at.change(year: 1900)
+      book.created_at = book.created_at.change(year: 2111)
 
       expect(book.leap_year?).to eq(false)
-
-      book.created_at = book.created_at.change(year: 2100)
-
-      expect(book.leap_year?).to eq(false)
-
-      book.created_at = book.created_at.change(year: 2400)
-
-      expect(book.leap_year?).to eq(true)
     end
   end
 
