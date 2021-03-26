@@ -45,6 +45,35 @@ class Book < ApplicationRecord
     (divisible_by_4 && not_divisible_by_100) || divisible_by_400
   end
 
+  def self.count_in_leap_years
+    Book.all.find_all { |book| book.leap_year? }.count
+  end
+
+  def self.count_per_year
+    book_year_hash = Book.all.group_by { |book| book.created_at.year }
+    book_year_hash.transform_values { |books| books.count }
+  end
+
+  def self.count_in_years(*years)
+    book_year_hash = Book.all.group_by { |book| book.created_at.year }
+    count_per_year = book_year_hash.transform_values { |books| books.count }
+    count_per_year.default = 0
+    years.to_h {|year| [year, count_per_year[year]]}
+  end
+
+  def self.per_month(year)
+    books_by_year_array = Book.all.find_all { |book| book.created_at.year == year }
+    book_month_hash = books_by_year_array.group_by { |book| book.created_at.month }
+    count_per_month = book_month_hash.transform_values { |books| books.count }
+    count_per_month.default = 0
+
+    count_per_month_default = {}
+    (1..12).to_a.each { |month| count_per_month_default[month] = count_per_month[month] }
+    count_per_month.each { |month, book_count| count_per_month_default[month] = book_count }
+    month_names = Date::MONTHNAMES
+    count_per_month_default.transform_keys { |month| month_names[month] }
+  end
+
   private def length_of_isbn
     return if isbn.nil?
 

@@ -99,6 +99,84 @@ describe Book do
     end
   end
 
+  describe ".count_in_leap_years" do
+    it "Determines how many books were created during a leap year" do
+      book = Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1))
+
+      expect(Book.count_in_leap_years).to eq(1)
+
+      book.update!(created_at: Date.new(1700, 1, 1))
+
+      expect(Book.count_in_leap_years).to eq(0)
+
+      book.update!(created_at: Date.new(2016, 1, 1))
+
+      expect(Book.count_in_leap_years).to eq(1)
+
+      book.update!(created_at: Date.new(2111, 1, 1))
+
+      expect(Book.count_in_leap_years).to eq(0)
+    end
+  end
+
+  describe ".count_per_year" do
+    it "Determines how many books were created per year" do
+      expect(Book.count_per_year).to eq({ })
+
+      Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1))
+
+      expect(Book.count_per_year).to eq({ 2000 => 1})
+
+      Book.create!(name: "Freedom", isbn: 1919191919, created_at: Date.new(2021, 12, 31))
+
+      expect(Book.count_per_year).to eq({ 2000 => 1, 2021 => 1})
+    end
+  end
+
+  describe ".count_in_years" do
+    it "Determines how many books were created per year out of a list of provided years" do
+      # When we have no books, the value for every year is zero
+      expect(Book.count_in_years(2000, 2019, 2020)).to eq({ 2000 => 0, 2019 => 0, 2020 => 0,})
+
+      Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1))
+
+      # Adding one book updates the value appropriately
+      expect(Book.count_in_years(2000, 2019, 2020)).to eq({ 2000 => 1, 2019 => 0, 2020 => 0,})
+
+      Book.create!(name: "Freedom", isbn: 1919191919, created_at: Date.new(2021, 1, 1))
+
+      # No years in the method works as expected
+      expect(Book.count_in_years()).to eq({})
+
+      # The same year entered twice only yields one result
+      expect(Book.count_in_years(2000, 2000)).to eq({ 2000 => 1 })
+    end
+  end
+
+  describe ".per_month" do
+    it "Determines how many books were created each month during a given year" do
+      default_monthly_values = { "January" => 0, "February" => 0, "March" => 0, "April" => 0, "May" => 0, "June" => 0, "July" => 0, "August" => 0, "September" => 0, "October" => 0, "November" => 0, "December" => 0,}
+
+      # When we have no books, the value for every month is zero
+      expect(Book.per_month(2000)).to eq(default_monthly_values)
+
+      Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1))
+
+      # Adding one book updates the value appropriately
+      expect(Book.per_month(2000)).to eq(default_monthly_values.merge({ "January" => 1 }))
+
+      Book.create!(name: "Freedom", isbn: 1919191919, created_at: Date.new(2000, 2, 1))
+
+      # Adding a second book updates the value appropriately
+      expect(Book.per_month(2000)).to eq(default_monthly_values.merge({ "January" => 1, "February" => 1 }))
+
+      # Add a book with an incorrect year does not affect hash
+      Book.create!(name: "Freedom2", isbn: 1919191918, created_at: Date.new(2001, 2, 1))
+
+      expect(Book.per_month(2000)).to eq(default_monthly_values.merge({ "January" => 1, "February" => 1 }))
+    end
+  end
+
   it "validates that a Book has a name" do
     book = Book.new
 
