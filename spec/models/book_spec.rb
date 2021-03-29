@@ -73,6 +73,32 @@ describe Book do
     end
   end
 
+  describe ".leap_year" do
+    it "Determines whether or not the book was written in a leap year" do
+      book = Book.new
+
+      # 2000 is divisible by 4, 100, and 400
+      book.created_at = Date.new(2000, 1, 1)
+
+      expect(book.leap_year?).to eq(true)
+
+      # 1700 is divisible by 4 and divisible by 100 but not divisible by 400
+      book.created_at = book.created_at.change(year: 1700)
+
+      expect(book.leap_year?).to eq(false)
+
+      # 2016 is divisible by 4 and not divisible by 100
+      book.created_at = book.created_at.change(year: 2016)
+
+      expect(book.leap_year?).to eq(true)
+
+      # 2111 is not divisible by 4
+      book.created_at = book.created_at.change(year: 2111)
+
+      expect(book.leap_year?).to eq(false)
+    end
+  end
+
   it "validates that a Book has a name" do
     book = Book.new
 
