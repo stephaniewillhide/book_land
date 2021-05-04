@@ -38,13 +38,7 @@ class Book < ApplicationRecord
   end
 
   def leap_year?
-    year = created_at.year
-
-    divisible_by_4 = year % 4 == 0
-    not_divisible_by_100 = year % 100 != 0
-    divisible_by_400 = year % 400 == 0
-
-    (divisible_by_4 && not_divisible_by_100) || divisible_by_400
+    LeapYear.new(created_at).leap_year?
   end
 
   def self.count_in_leap_years
