@@ -7,9 +7,9 @@ describe Author do
 
   describe ".ordered" do
     it "orders records by name ASC" do
-      bell_hooks = Author.create!(name: "bell hooks")
-      anne_frank = Author.create!(name: "Anne Frank")
-      agatha_christie = Author.create!(name: "agatha christie")
+      bell_hooks = Author.create!(name: "bell hooks", biography: "Lorem ipsum", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
+      anne_frank = Author.create!(name: "Anne Frank", biography: "Lorem ipsum", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
+      agatha_christie = Author.create!(name: "agatha christie", biography: "Lorem ipsum", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
 
       expect(described_class.ordered).to eq([agatha_christie, anne_frank, bell_hooks])
     end
@@ -45,8 +45,46 @@ describe Author do
     describe "searching by publisher name" do
       let(:search_term) { "penguin" }
 
-      it { is_expected.not_to include(james_baldwin) }
-      it { is_expected.to include(jane_austin) }
+      it { is_expected.not_to include(jane_austin) }
+      it { is_expected.to include(james_baldwin) }
+    end
+  end
+
+  describe ".number_of_books_per_genre" do
+    it "Determines how many books each Author wrote per Genre" do
+      author = Author.create!(name: "James Baldwin", biography: "James Baldwin was an American novelist, playwright, essayist, poet, and activist.", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
+      expect(author.number_of_books_per_genre).to eq({ })
+
+      drama = Genre.create!(name: "Drama")
+      comedy = Genre.create!(name: "Comedy")
+
+      Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1), authors: [author], genres: [drama, comedy])
+      author.reload
+      expect(author.number_of_books_per_genre).to eq({ drama.name => 1, comedy.name => 1,})
+
+      author2 = create(:author, name: "Isabel Allende")
+      create(:book, authors: [author2], genres: [drama, comedy])
+
+      author.reload
+      author2.reload
+
+      # Ensures that a creation of a new book does not change the original author
+      expect(author.number_of_books_per_genre).to eq({ drama.name => 1, comedy.name => 1,})
+    end
+  end
+
+  describe ".bibliography" do
+    it "Returns a human readable string containing an Author's bibliography" do
+
+      author = Author.create!(name: "James Baldwin", biography: "James Baldwin was an American novelist, playwright, essayist, poet, and activist.", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
+      expect(author.bibliography).to eq("")
+
+      drama = Genre.create!(name: "Drama")
+      comedy = Genre.create!(name: "Comedy")
+
+      Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1), authors: [author], genres: [drama, comedy])
+      author.reload
+      expect(author.bibliography).to eq("James Baldwin: January 2000 Emma (Drama, Comedy)")
     end
   end
 
@@ -63,13 +101,13 @@ describe Author do
   end
 
   it "validates that a Author has a name" do
-    Author = Author.new
+    author = Author.new
 
-    Author.valid?
-    expect(Author.errors[:name]).to eq(["can't be blank"])
+    author.valid?
+    expect(author.errors[:name]).to eq(["can't be blank"])
 
-    Author.name = "Test Author"
-    Author.valid?
-    expect(Author.errors[:name]).to eq([])
+    author.name = "Test Author"
+    author.valid?
+    expect(author.errors[:name]).to eq([])
   end
 end
