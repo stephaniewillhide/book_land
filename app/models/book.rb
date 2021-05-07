@@ -1,4 +1,6 @@
 class Book < ApplicationRecord
+  VALID_ISBN_LENGTHS = [10, 13].freeze
+
   has_one_attached :cover
 
   has_and_belongs_to_many :genres
@@ -77,8 +79,8 @@ class Book < ApplicationRecord
   private def length_of_isbn
     return if isbn.nil?
 
-    if isbn.length != 10 && isbn.length != 13
-      errors.add(:isbn, "is the wrong length (should be 10 or 13 characters)")
+    if !VALID_ISBN_LENGTHS.include? isbn.length
+      errors.add(:isbn, "is the wrong length (should be #{ VALID_ISBN_LENGTHS.to_sentence(two_words_connector: ' or ') } characters)")
     end
   end
 end

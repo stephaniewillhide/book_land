@@ -7,9 +7,9 @@ describe Author do
 
   describe ".ordered" do
     it "orders records by name ASC" do
-      bell_hooks = Author.create!(name: "bell hooks", biography: "Lorem ipsum", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
-      anne_frank = Author.create!(name: "Anne Frank", biography: "Lorem ipsum", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
-      agatha_christie = Author.create!(name: "agatha christie", biography: "Lorem ipsum", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
+      bell_hooks = create(:author, name: "bell hooks")
+      anne_frank = create(:author, name: "Anne Frank")
+      agatha_christie = create(:author, name: "agatha christie")
 
       expect(described_class.ordered).to eq([agatha_christie, anne_frank, bell_hooks])
     end
@@ -18,8 +18,8 @@ describe Author do
   describe ".search" do
     subject { described_class.search(search_term) }
 
-    let!(:james_baldwin) { Author.create!(name: "James Baldwin", biography: "Lorem ipsum", publisher_name: "Penguin Books", publisher_email: "info@penguin.com") }
-    let!(:jane_austin) { Author.create!(name: "Jane Austin", biography: "Test bio", publisher_name: "Classic Books", publisher_email: "info@classic.com") }
+    let!(:james_baldwin) { create(:author, name: "James Baldwin", publisher_name: "Penguin Books") }
+    let!(:jane_austin) { create(:author, name: "Jane Austin", publisher_name: "Classic Books") }
 
     describe "searching by name" do
       let(:search_term) { "james" }
@@ -52,17 +52,18 @@ describe Author do
 
   describe ".number_of_books_per_genre" do
     it "Determines how many books each Author wrote per Genre" do
-      author = Author.create!(name: "James Baldwin", biography: "James Baldwin was an American novelist, playwright, essayist, poet, and activist.", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
+      author = create(:author)
       expect(author.number_of_books_per_genre).to eq({ })
 
-      drama = Genre.create!(name: "Drama")
-      comedy = Genre.create!(name: "Comedy")
+      drama = create(:genre, name: "Drama")
+      comedy = create(:genre, name: "Comedy")
 
-      Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1), authors: [author], genres: [drama, comedy])
+      create(:book, authors: [author], genres: [drama, comedy])
+
       author.reload
       expect(author.number_of_books_per_genre).to eq({ drama.name => 1, comedy.name => 1,})
 
-      author2 = create(:author, name: "Isabel Allende")
+      author2 = create(:author)
       create(:book, authors: [author2], genres: [drama, comedy])
 
       author.reload
@@ -75,14 +76,11 @@ describe Author do
 
   describe ".bibliography" do
     it "Returns a human readable string containing an Author's bibliography" do
+      author = create(:author, name: "James Baldwin")
+      drama = create(:genre, name: "Drama")
+      comedy = create(:genre, name: "Comedy")
 
-      author = Author.create!(name: "James Baldwin", biography: "James Baldwin was an American novelist, playwright, essayist, poet, and activist.", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
-      expect(author.bibliography).to eq("")
-
-      drama = Genre.create!(name: "Drama")
-      comedy = Genre.create!(name: "Comedy")
-
-      Book.create!(name: "Emma", isbn: 9292929292, created_at: Date.new(2000, 1, 1), authors: [author], genres: [drama, comedy])
+      create(:book, name: "Emma", created_at: Date.new(2000, 1, 1), authors: [author], genres: [drama, comedy])
       author.reload
       expect(author.bibliography).to eq("James Baldwin: January 2000 Emma (Drama, Comedy)")
     end
@@ -90,7 +88,7 @@ describe Author do
 
   describe ".to_csv" do
     it "Exports the appropriate content" do
-      dracula = Author.create!(name: "James Baldwin", biography: "Lorem ipsum", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
+      dracula = create(:author, name: "James Baldwin", biography: "Lorem ipsum", publisher_name: "Penguin Books", publisher_email: "info@penguin.com")
       csv = Author.to_csv.split("\n")
       header = csv[0]
       data = csv[1]

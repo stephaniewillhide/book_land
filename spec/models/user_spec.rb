@@ -7,10 +7,10 @@ describe User do
 
   describe ".ordered" do
     it "orders records by name ASC" do
-      beatrice = User.create!(name: "Beatrice", email: "beatrice@interexchange.org", password: "password")
-      adam = User.create!(name: "Adam", email: "adam@interexchange.org", password: "password")
-      bernadette = User.create!(name: "bernadette", email: "bweber@interexchange.org", password: "password")
-      andrea = User.create!(name: "andrea", email: "ajackson@interexchange.org", password: "password")
+      beatrice = create(:user, name: "Beatrice")
+      adam = create(:user, name: "Adam")
+      bernadette = create(:user, name: "bernadette")
+      andrea = create(:user, name: "andrea")
 
       expect(described_class.ordered).to eq([adam, andrea, beatrice, bernadette])
     end
@@ -19,8 +19,8 @@ describe User do
   describe ".search" do
     subject { described_class.search(search_term) }
 
-    let!(:david) { User.create!(name: "David", email: "dsmith@interexchange.org", password: "password") }
-    let!(:candice) { User.create!(name: "Candice", email: "cjones@interexchange.org", password: "password") }
+    let!(:david) { create(:user, name: "David", email: "dsmith@interexchange.org") }
+    let!(:candice) { create(:user, name: "Candice", email: "cjones@interexchange.org") }
 
     describe "searching by name" do
       let(:search_term) { "cand" }
