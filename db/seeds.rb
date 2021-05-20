@@ -10,8 +10,8 @@ authors = unless Author.exists?
   FactoryBot.create_list(:author, 5)
 end
 
-genres = unless Genre.exists?
-  FactoryBot.create_list(:genre, 5)
+genres = I18n.t("faker.book.genre").sample(5).map do |name|
+  Genre.find_or_create_by(name: name)
 end
 
 book_covers = [

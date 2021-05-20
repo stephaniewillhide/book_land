@@ -31,6 +31,10 @@ class Author < ApplicationRecord
     end
   end
 
+  def leap_year?
+    LeapYear.new(created_at).leap_year?
+  end
+
   def number_of_books_per_genre
     books.flat_map { |book| book.genres }.
       map { |genre| genre.name }.

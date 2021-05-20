@@ -74,6 +74,27 @@ describe Author do
     end
   end
 
+  describe ".leap_year" do
+    subject { author.leap_year? }
+    let(:author) { Author.new }
+
+    before do
+      leap_year_double = double(leap_year?: leap_year?)
+      # When we call :new on LeapYear with author.created_at, return the leap_year_double
+      allow(LeapYear).to receive(:new).with(author.created_at).and_return(leap_year_double)
+    end
+
+    context "is a leap year" do
+      let(:leap_year?) { true }
+      it { is_expected.to eq(true) }
+    end
+
+    context "is not a leap year" do
+      let(:leap_year?) { false }
+      it { is_expected.to eq(false) }
+    end
+  end
+
   describe ".bibliography" do
     it "Returns a human readable string containing an Author's bibliography" do
       author = create(:author, name: "James Baldwin")
