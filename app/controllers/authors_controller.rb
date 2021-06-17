@@ -48,6 +48,6 @@ class AuthorsController < ApplicationController
   end
 
   private def object_params
-    params.require(:author).permit(:name, :biography, :publisher_name, :publisher_email)
+    params.require(:author).permit(:name, :biography, :publisher_name, :publisher_email, :date_of_birth)
   end
 end

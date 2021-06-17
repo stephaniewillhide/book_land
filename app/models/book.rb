@@ -15,6 +15,8 @@ class Book < ApplicationRecord
 
   validates :name, presence: true
 
+  validates :published_at, presence: true
+
   scope :ordered, -> { order('LOWER(books.name)') }
 
   scope :search, -> (search_term) {

@@ -129,4 +129,31 @@ describe Author do
     author.valid?
     expect(author.errors[:name]).to eq([])
   end
+
+  describe ".zodiac" do
+    subject { author.zodiac }
+    let(:zodiac) { Zodiac.new }
+    let(:author) { Author.new(date_of_birth: Date.current) }
+    before do
+      allow(Zodiac).to receive(:for_date).with(author.date_of_birth).and_return(zodiac)
+    end
+
+    it { is_expected.to eq(zodiac) }
+  end
+
+  describe ".age_at_first_release" do
+    it "Calculates age at first release" do
+      author = create(:author, date_of_birth: "1980-12-15")
+      create(:book, published_at: Date.new(2020, 12, 15), authors: [author])
+      expect(author.age_at_first_release).to eq("About 40 years and 0 days")
+
+      author2 = create(:author, date_of_birth: "1950-02-28")
+      create(:book, published_at: Date.new(2020, 12, 15), authors: [author2])
+      expect(author2.age_at_first_release).to eq("About 70 years and 290 days")
+
+      author3 = create(:author, date_of_birth: "1940-12-28")
+      create(:book, published_at: Date.new(2000, 12, 15), authors: [author3])
+      expect(author3.age_at_first_release).to eq("About 59 years and 352 days")
+    end
+  end
 end

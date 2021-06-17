@@ -11,6 +11,8 @@ class Author < ApplicationRecord
 
   validates :publisher_email, presence: true
 
+  validates :date_of_birth, presence: true
+
   scope :ordered, -> { order('LOWER(authors.name)') }
 
   scope :search, -> (search_term) do
@@ -34,6 +36,21 @@ class Author < ApplicationRecord
   def leap_year?
     LeapYear.new(created_at).leap_year?
   end
+
+  def zodiac
+    Zodiac.for_date(date_of_birth)
+  end
+
+  def age_at_first_release
+    date_of_first_book = books.map(&:published_at).min
+
+    average_number_of_days_in_a_year = 365.25
+    diff = (date_of_first_book - date_of_birth).to_i / average_number_of_days_in_a_year
+
+    years = diff.floor
+    days = (diff.modulo(1) * average_number_of_days_in_a_year).round(0)
+
+    "About #{ years } years and #{ days } days"  end
 
   def number_of_books_per_genre
     books.flat_map { |book| book.genres }.
