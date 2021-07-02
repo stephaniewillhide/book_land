@@ -10,8 +10,11 @@ class BookCsvImporter
       raise "The file is empty"
     end
 
-    if csv_table.headers.join(",") != "Name,ISBN,Authors,Genres,Featured,Published At,"
-      raise "The headers are incorrect"
+    expected_csv_headers = ["Name","ISBN","Authors","Genres","Featured","Published At"]
+    missing_table_headers = expected_csv_headers - csv_table.headers
+
+    if missing_table_headers.present?
+      raise "The headers are incorrect. You are missing #{ missing_table_headers.to_sentence }"
     end
 
     if csv_table.to_s.match?(/\n,+\n/)
