@@ -1,9 +1,11 @@
 require "rails_helper"
+require 'database_cleaner/active_record'
+
+DatabaseCleaner.strategy = :truncation
+
+DatabaseCleaner.clean
 
 describe Author do
-  before do
-    Author.delete_all
-  end
 
   describe ".ordered" do
     it "orders records by name ASC" do
